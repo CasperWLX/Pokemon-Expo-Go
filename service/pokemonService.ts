@@ -6,7 +6,7 @@ interface apiInterface {
     pokemonToGuess: pokemonInterface;
     listOfGuessedPokemon: pokemonInterface[];
     listOfAllPokemon: pokemonInterface[];
-    fetchOnePokemon: (name: string) => Promise<pokemonInterface>;
+    fetchOnePokemon: (identifier: string) => Promise<pokemonInterface>;
     fetchAllPokemon: () => void;
     setPokemonToGuess: (pokemon: pokemonInterface) => void;
     addOnePokemonToArray: (pokemon: pokemonInterface) => void;
@@ -19,9 +19,9 @@ const pokemonService = create<apiInterface>()((set, get) => ({
     listOfGuessedPokemon: [],
     listOfAllPokemon: [],
 
-    fetchOnePokemon: async (name) => {
+    fetchOnePokemon: async (identifier) => {
         try {
-            const response = await util.get(`${apiURL}/fetch-one-pokemon/${name}`)
+            const response = await util.get(`/pokemon/${identifier}`)
             if (response.status === 200) {
                 return response.data;
             }
@@ -33,7 +33,7 @@ const pokemonService = create<apiInterface>()((set, get) => ({
 
     fetchAllPokemon: async () => {
         try {
-            const response = await util.get(`${apiURL}/fetch-all-pokemon`)
+            const response = await util.get(`/pokemon/all`)
             if (response.status === 200) {
                 set({listOfAllPokemon: response.data})
                 console.log(response.data)

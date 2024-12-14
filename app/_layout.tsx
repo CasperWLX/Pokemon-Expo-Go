@@ -1,6 +1,7 @@
 import { Stack } from "expo-router";
 import "../global.css";
 import {DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native";
+import 'expo-router/entry';
 import { useColorScheme } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
@@ -14,7 +15,7 @@ export default function RootLayout() {
                 <Stack.Screen name="(pages)" options={{ headerShown: false }} />
                 <Stack.Screen name="+not-found" />
             </Stack>
-            <StatusBar />
+            <StatusBar style="auto"/>
         </ThemeProvider>
     );
 }

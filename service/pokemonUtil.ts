@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const apiURL = "http://localhost:8080/database";
+const apiURL = "http://192.168.8.152:8080/database/v2";
 
 const pokemonUtil = axios.create({
     baseURL: apiURL,
