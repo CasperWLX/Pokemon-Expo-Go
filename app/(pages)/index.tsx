@@ -1,6 +1,13 @@
-import GuessBox from "@/components/GuessBox";
-import { ThemedView } from "@/components/ThemedView";
-import { View, ImageBackground } from "react-native";
+import GuessBox from "@/components/pokemon/GuessBox";
+import PreviousGuessesBox from "@/components/pokemon/PreviousGuessesBox";
+import {
+	View,
+	ImageBackground,
+	KeyboardAvoidingView,
+	Platform,
+	TouchableWithoutFeedback,
+	Keyboard,
+} from "react-native";
 import { useEffect } from "react";
 import pokemonService from "@/service/pokemonService";
 
@@ -34,11 +41,12 @@ export default function Index() {
 
 	return (
 		<ImageBackground
-			className="flex-1 justify-center items-center"
+			className="h-screen-safe w-screen"
 			source={require("@/assets/images/pokemon-bg.webp")}
 		>
-			<View className="flex-row p-4">
+			<View className="flex-1 items-center justify-center mt-12 p-4">
 				<GuessBox />
+				<PreviousGuessesBox />
 			</View>
 		</ImageBackground>
 	);
