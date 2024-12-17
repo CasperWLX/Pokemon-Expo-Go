@@ -5,9 +5,9 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 // Add your SFSymbol to MaterialIcons mappings here.
 const MAPPING: Record<string, React.ComponentProps<typeof FontAwesome>['name']> = {
-  // Mapping SFSymbols to MaterialIcons names
   'house.fill': 'home',
   'user.fill': 'user',
+  'arrow.fill': 'arrow-left',
   'chevron.left.forwardslash.chevron.right': 'code',
   'chevron.right': 'chevron-right',
 };
@@ -39,5 +39,5 @@ export function IconSymbol({
     return null; // Render nothing if icon mapping is missing
   }
 
-  return <FontAwesome color={color} size={size} name={mappedIcon} />;
+  return <FontAwesome color={color} size={size} name={mappedIcon} style={{padding: 2}} />;
 }

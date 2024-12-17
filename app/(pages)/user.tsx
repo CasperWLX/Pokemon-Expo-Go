@@ -1,16 +1,27 @@
-import { View, Text } from "react-native";
+import { View, ImageBackground, KeyboardAvoidingView, ScrollView, Platform } from "react-native";
 import React from "react";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
+import Login from "@/components/user/Login";
 
 const user = () => {
 	return (
-		<ThemedView className="flex-1 justify-center items-center">
-			<View className="flex-row">
-				<ThemedText>Text2</ThemedText>
-				<ThemedText>Text2</ThemedText>
-			</View>
-		</ThemedView>
+		<ImageBackground
+			className="h-screen-safe w-screen"
+			source={require("@/assets/images/userbackground.webp")}
+		>
+			<KeyboardAvoidingView
+				behavior={Platform.OS === "ios" ? "padding" : "height"}
+                style={{flex: 1}}
+			>
+				<ScrollView
+					contentContainerClassName="flex-grow justify-center items-center p-4"
+					keyboardShouldPersistTaps="handled"
+				>
+					<View className="w-full items-center">
+						<Login />
+					</View>
+				</ScrollView>
+			</KeyboardAvoidingView>
+		</ImageBackground>
 	);
 };
 
