@@ -1,4 +1,4 @@
-import util from './pokemonUtil'
+import util from './clientUtils'
 import { create } from 'zustand'
 import { pokemonInterface } from '../interface/pokemonInterface'
 
@@ -13,6 +13,8 @@ interface apiInterface {
     cleanArray: () => void;
 }
 
+const pokemonEndpoints = "/database/v2"
+
 const pokemonService = create<apiInterface>()((set, get) => ({
 
     pokemonToGuess: {} as pokemonInterface,
@@ -21,7 +23,7 @@ const pokemonService = create<apiInterface>()((set, get) => ({
 
     fetchOnePokemon: async (identifier) => {
         try {
-            const response = await util.get(`/pokemon/${identifier}`)
+            const response = await util.get(`${pokemonEndpoints}/pokemon/${identifier}`)
             if (response.status === 200) {
                 return response.data;
             }
@@ -33,7 +35,7 @@ const pokemonService = create<apiInterface>()((set, get) => ({
 
     fetchAllPokemon: async () => {
         try {
-            const response = await util.get(`/pokemon/all`)
+            const response = await util.get(`${pokemonEndpoints}/pokemon/all`)
             if (response.status === 200) {
                 set({listOfAllPokemon: response.data})
                 console.log(response.data)

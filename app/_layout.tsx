@@ -16,7 +16,7 @@ export default function RootLayout() {
 			value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
 		>
 			<Stack>
-				<Stack.Screen name="(pages)" options={{ headerShown: false, animation: 'slide_from_left' }} />
+				<Stack.Screen name="(logged_out)" options={{ headerShown: false, animation: 'slide_from_left' }} />
 				<Stack.Screen
 					name="register"
 					options={{ headerShown: false, animation: 'slide_from_right' }}
