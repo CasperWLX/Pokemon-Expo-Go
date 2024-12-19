@@ -7,13 +7,20 @@ import {
 	FlatList,
 	Image,
 	Keyboard,
+	TouchableWithoutFeedback,
+	TouchableNativeFeedback,
+	Platform,
 } from "react-native";
 import PokemonService from "../../service/pokemonService";
 import { pokemonInterface } from "../../interface/pokemonInterface";
 
 const GuessBox = () => {
-	const { addOnePokemonToArray, fetchOnePokemon, listOfAllPokemon, listOfGuessedPokemon } =
-		PokemonService();
+	const {
+		addOnePokemonToArray,
+		fetchOnePokemon,
+		listOfAllPokemon,
+		listOfGuessedPokemon,
+	} = PokemonService();
 	const [guess, setGuess] = useState("");
 	const [suggestionList, setSuggestions] = useState<pokemonInterface[]>([]);
 
@@ -65,10 +72,11 @@ const GuessBox = () => {
 			<View className="relative w-5/6 items-center">
 				<TouchableOpacity>
 					<TextInput
-						className="p-2 border-2 border-black min-w-full rounded-lg m-4"
+						className="p-2 border-2 border-black color-black min-w-full rounded-lg m-4"
 						placeholder="Enter PokéID or Name"
 						value={guess}
 						onChangeText={handleInputChange}
+						placeholderTextColor="gray"
 					/>
 				</TouchableOpacity>
 
@@ -78,21 +86,24 @@ const GuessBox = () => {
 						keyExtractor={(item) => item.name}
 						keyboardShouldPersistTaps="handled"
 						renderItem={({ item }) => (
-							<TouchableOpacity
-								className="flex-row items-center p-2"
+							<TouchableNativeFeedback
 								onPress={() => handleSuggestionClick(item.name)}
 							>
-								<Image
-									className="flex-shrink-0 object-contain h-16 w-16"
-									source={{ uri: item.imgURL }}
-								/>
-								<Text className="ml-4">{item.name}</Text>
-							</TouchableOpacity>
+								<View className="flex-row items-center p-2">
+									<Image
+										className="flex-shrink-0 object-contain h-16 w-16"
+										source={{ uri: item.imgURL }}
+									/>
+									<Text className="ml-4">{item.name}</Text>
+								</View>
+							</TouchableNativeFeedback>
 						)}
-						className="absolute z-10 overflow-y-auto max-h-40 w-full mt-12 bg-slate-50"
+						className="absolute z-10 overflow-y-auto max-h-48 w-full mt-12 bg-slate-50"
 					/>
 				)}
-                <Text className="p-2 mb-2">Number of tries: {listOfGuessedPokemon.length}</Text>
+				<Text className="p-2 mb-2">
+					Number of tries: {listOfGuessedPokemon.length}
+				</Text>
 			</View>
 			<TouchableOpacity
 				className="bg-secondary p-4 rounded-full shadow-black shadow-lg border-transparent"

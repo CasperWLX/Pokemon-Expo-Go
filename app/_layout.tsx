@@ -8,22 +8,28 @@ import {
 import "expo-router/entry";
 import { useColorScheme } from "react-native";
 import { StatusBar } from "expo-status-bar";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function RootLayout() {
 	const colorScheme = useColorScheme();
 	return (
-		<ThemeProvider
-			value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-		>
-			<Stack>
-				<Stack.Screen name="(logged_out)" options={{ headerShown: false, animation: 'slide_from_left' }} />
-				<Stack.Screen
-					name="register"
-					options={{ headerShown: false, animation: 'slide_from_right' }}
-				/>
-				<Stack.Screen name="+not-found" />
-			</Stack>
-			<StatusBar style="auto" />
-		</ThemeProvider>
+		<GestureHandlerRootView style={{ flex: 1 }}>
+			<ThemeProvider
+				value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+			>
+				<Stack>
+					<Stack.Screen
+						name="(pages)"
+						options={{
+							headerShown: false,
+							gestureEnabled: true,
+							animation: "slide_from_left",
+						}}
+					/>
+					<Stack.Screen name="+not-found" />
+				</Stack>
+				<StatusBar style="auto" />
+			</ThemeProvider>
+		</GestureHandlerRootView>
 	);
 }

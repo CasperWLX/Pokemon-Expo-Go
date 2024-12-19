@@ -10,9 +10,10 @@ interface serviceInterface {
 	logout: () => void;
 	getUserInfo: () => Promise<void>;
 	refreshTokens: () => Promise<boolean>;
+    updateUser: (numberOfAttempts: number) => Promise<void>
 }
 
-const userEndpoints = "/user/v1";
+const userEndpoints = "/user/v2";
 
 const userService = create<serviceInterface>()((set) => ({
 	loggedInUser: {} as userInterface,
@@ -65,17 +66,7 @@ const userService = create<serviceInterface>()((set) => ({
 
 	getUserInfo: async () => {
 		try {
-			const accessToken = await tokenService.getJwtToken();
-			if (!accessToken) {
-				console.error("Access token not found.");
-				return;
-			}
-
-			const response = await util.get(`${userEndpoints}/info`, {
-				headers: {
-					Authorization: `Bearer ${accessToken}`,
-				},
-			});
+			const response = await util.get(`${userEndpoints}/info`);
 
 			if (response.status === 200) {
 				set({ loggedInUser: response.data });
@@ -84,6 +75,19 @@ const userService = create<serviceInterface>()((set) => ({
 			console.error("Can't fetch user info");
 		}
 	},
+
+    updateUser: async(numberOfAttempts) => {
+        try{
+            const response = await util.put(`${userEndpoints}/update`,{
+                noOfAttempts: numberOfAttempts
+            })
+            if(response.status === 200){
+                set({ loggedInUser: response.data });
+            }
+        }catch(error){
+            console.error("Could not update user")
+        }
+    },
 
 	refreshTokens: async () => {
 		try {

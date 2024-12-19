@@ -1,15 +1,8 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { StyleSheet } from 'react-native'
-import { useTheme } from '@react-navigation/native'
 
 const FooterNavigation = () => {
 
-    const styles = StyleSheet.create({
-        textContainer: {
-            padding: 2 
-        }
-    })
   return (
     <View style={{
         position: 'absolute',
