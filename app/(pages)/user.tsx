@@ -4,7 +4,7 @@ import {
 	KeyboardAvoidingView,
 	Platform,
 } from "react-native";
-import React, { useEffect } from "react";
+import React from "react";
 import Login from "@/components/user/Login";
 import userService from "@/service/userService";
 import UserInfo from "@/components/user/UserInfo";
@@ -16,21 +16,24 @@ const index = () => {
 		<ImageBackground
 			className="h-screen-safe w-screen"
 			source={require("@/assets/images/userbackground.webp")}
+            style={{flex: 1}}
 		>
-			<KeyboardAvoidingView
-				behavior={Platform.OS === "ios" ? "padding" : "height"}
-				style={{ flex: 1 }}
-			>
-				<View className="flex-grow justify-center items-center p-4">
-					<View className="w-full items-center mt-12">
-						{loggedInUser.username === undefined ? (
+			{loggedInUser.username === undefined ? (
+				<KeyboardAvoidingView
+					behavior={Platform.OS === "ios" ? "padding" : "height"}
+                    style={{flex: 1}}
+				>
+					<View className="flex-grow p-4 justify-center items-center">
+						<View className="items-center w-full">
 							<Login />
-						) : (
-							<UserInfo />
-						)}
+						</View>
 					</View>
+				</KeyboardAvoidingView>
+			) : (
+				<View className="flex-1 justify-center mt-12 p-4 color-black">
+					<UserInfo />
 				</View>
-			</KeyboardAvoidingView>
+			)}
 		</ImageBackground>
 	);
 };

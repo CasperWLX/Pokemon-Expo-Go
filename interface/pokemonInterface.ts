@@ -1,5 +1,5 @@
 export interface pokemonInterface {
-    id: number;
+    pokemonId: number;
     name: string;
     firstType: string;
     secondType: string;

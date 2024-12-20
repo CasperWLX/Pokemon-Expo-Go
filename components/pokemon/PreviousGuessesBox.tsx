@@ -26,8 +26,6 @@ const PreviousGuessesBox = () => {
 						className="bg-secondary rounded-lg mb-4"
 						style={{ flex: 1 }}
 					>
-						{/* Render DescriptionBox only for the first item */}
-
 						{/* Horizontal ScrollView for Characteristics */}
 						<View
 							className="flex-row p-2 items-center justify-center"

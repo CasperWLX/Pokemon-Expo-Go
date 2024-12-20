@@ -1,11 +1,6 @@
 import GuessBox from "@/components/pokemon/GuessBox";
 import PreviousGuessesBox from "@/components/pokemon/PreviousGuessesBox";
-import {
-	View,
-	ImageBackground,
-	Text,
-	TouchableOpacity,
-} from "react-native";
+import { View, ImageBackground, Text, TouchableOpacity } from "react-native";
 import { useEffect } from "react";
 import pokemonService from "@/service/pokemonService";
 import userService from "@/service/userService";
@@ -21,9 +16,7 @@ export default function Index() {
 		listOfAllPokemon,
 	} = pokemonService();
 
-    const {updateUser} = userService();
-
-
+	const { updateUser, loggedInUser } = userService();
 
 	useEffect(() => {
 		fetchRandomPokemon();
@@ -43,11 +36,15 @@ export default function Index() {
 	};
 
 	useEffect(() => {
-		if (listOfGuessedPokemon.some((pokemon) => pokemon.name === pokemonToGuess.name)){
-			updateUser(listOfGuessedPokemon.length);
+		if (
+			listOfGuessedPokemon.some(
+				(pokemon) =>
+					pokemon.name === pokemonToGuess.name && loggedInUser?.username
+			)
+		) {
+			updateUser(listOfGuessedPokemon);
 		}
 	}, [listOfGuessedPokemon]);
-
 
 	return (
 		<ImageBackground

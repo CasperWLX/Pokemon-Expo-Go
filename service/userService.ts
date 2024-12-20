@@ -2,6 +2,7 @@ import { create } from "zustand";
 import util from "./clientUtils";
 import * as tokenService from "./tokenService";
 import userInterface from "@/interface/userInterface";
+import { pokemonInterface } from "@/interface/pokemonInterface";
 
 interface serviceInterface {
 	loggedInUser: userInterface;
@@ -10,7 +11,7 @@ interface serviceInterface {
 	logout: () => void;
 	getUserInfo: () => Promise<void>;
 	refreshTokens: () => Promise<boolean>;
-    updateUser: (numberOfAttempts: number) => Promise<void>
+	updateUser: (listOfGuessedPokemon: pokemonInterface[]) => Promise<void>;
 }
 
 const userEndpoints = "/user/v2";
@@ -76,18 +77,21 @@ const userService = create<serviceInterface>()((set) => ({
 		}
 	},
 
-    updateUser: async(numberOfAttempts) => {
-        try{
-            const response = await util.put(`${userEndpoints}/update`,{
-                noOfAttempts: numberOfAttempts
-            })
-            if(response.status === 200){
-                set({ loggedInUser: response.data });
-            }
-        }catch(error){
-            console.error("Could not update user")
-        }
-    },
+	updateUser: async (listOfGuessedPokemon) => {
+		try {
+			const listOfGuesses = listOfGuessedPokemon.map(
+				(pokemon) => pokemon.name
+			);
+			const response = await util.put(`${userEndpoints}/update`, {
+				guessedPokemon: listOfGuesses,
+			});
+			if (response.status === 200) {
+				set({ loggedInUser: response.data });
+			}
+		} catch (error) {
+			console.error("Could not update user");
+		}
+	},
 
 	refreshTokens: async () => {
 		try {

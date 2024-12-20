@@ -1,4 +1,5 @@
-import { View, Text, TouchableOpacity, TextInput } from "react-native";
+import { View, Text, TouchableOpacity, TextInput, Keyboard } from "react-native";
+import { useNavigation } from "expo-router";
 import Headline from "./Headline";
 import React, { useState, useEffect } from "react";
 import userService from "@/service/userService";
@@ -12,6 +13,8 @@ const Register = () => {
 
     const { register } = userService();
 
+    const navigate = useNavigation();
+
     useEffect(() => {
         setAllow(
             password === repeatPassword &&
@@ -23,8 +26,8 @@ const Register = () => {
     const handleSubmit = async () => {
         const result = await register(username, password);
         if (result) {
-            alert("You've successfully registered"); //Keyboard dismiss, clear input fields
-
+            alert("You've successfully registered");
+            Keyboard.dismiss()
         } else {
             alert("A user with that name already exists");
         }

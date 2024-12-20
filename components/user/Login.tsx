@@ -34,7 +34,7 @@ const Login = () => {
 	};
 
 	return (
-		<View className="flex flex-col items-center bg-primary w-full p-4 rounded-lg">
+		<View className="flex-col items-center bg-primary w-full p-4 rounded-lg">
 			<Headline title="Sign In" />
 			<View className="items-center mt-8 justify-center">
 				<TextInput

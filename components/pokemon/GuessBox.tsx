@@ -15,12 +15,8 @@ import PokemonService from "../../service/pokemonService";
 import { pokemonInterface } from "../../interface/pokemonInterface";
 
 const GuessBox = () => {
-	const {
-		addOnePokemonToArray,
-		fetchOnePokemon,
-		listOfAllPokemon,
-		listOfGuessedPokemon,
-	} = PokemonService();
+	const { addOnePokemonToArray, listOfAllPokemon, listOfGuessedPokemon } =
+		PokemonService();
 	const [guess, setGuess] = useState("");
 	const [suggestionList, setSuggestions] = useState<pokemonInterface[]>([]);
 
@@ -33,8 +29,13 @@ const GuessBox = () => {
 	};
 
 	const handleGuess = async () => {
+        
 		if (guess.trim()) {
-			const pokemon = await fetchOnePokemon(guess.toLowerCase());
+			const pokemon = listOfAllPokemon.find(
+				(pokemon) =>
+					pokemon.name.toLowerCase() === guess.toLowerCase() ||
+					pokemon.pokemonId === Number(guess)
+			);
 			if (pokemon) {
 				addOnePokemonToArray(pokemon);
 			}
@@ -62,7 +63,7 @@ const GuessBox = () => {
 	return (
 		<View className="bg-primary border-transparent rounded-3xl items-center w-full p-4">
 			<View
-				className="p-4 bg-secondary rounded-lg shadow-lg shadow-black"
+				className="p-4 bg-secondary rounded-lg shadow-md shadow-black m-2"
 				style={{ boxShadow: "20px" }}
 			>
 				<Text className="p-2">
