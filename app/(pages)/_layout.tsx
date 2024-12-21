@@ -8,11 +8,9 @@ import userService from "@/service/userService";
 
 const _layout = () => {
 	const colorScheme = useColorScheme();
-    const {loggedInUser} = userService();
+	const { loggedInUser } = userService();
 
-    useEffect(() => {
-
-    },[loggedInUser] )
+	useEffect(() => {}, [loggedInUser]);
 
 	return (
 		<Tabs
@@ -36,20 +34,38 @@ const _layout = () => {
 					),
 				}}
 			/>
+
 			<Tabs.Screen
 				name="user"
 				options={{
-					title: `${loggedInUser.username === undefined ? "User" : loggedInUser.username}`,
+					title: loggedInUser.username ?? "User",
 					tabBarIcon: ({ color }) => (
 						<IconSymbol size={28} name="user.fill" color={color} />
 					),
+					href:
+						loggedInUser?.username === undefined
+							? null
+							: "/(pages)/user",
 				}}
 			/>
-            <Tabs.Screen
+			<Tabs.Screen
 				name="register"
 				options={{
 					title: "Register",
-                    href: null,
+					href: null,
+				}}
+			/>
+			<Tabs.Screen
+				name="login"
+				options={{
+					tabBarIcon: ({ color }) => (
+						<IconSymbol size={28} name="user.fill" color={color} />
+					),
+					title: "Login",
+					href:
+						loggedInUser?.username === undefined
+							? "/(pages)/login"
+							: null,
 				}}
 			/>
 		</Tabs>

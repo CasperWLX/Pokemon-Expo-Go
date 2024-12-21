@@ -9,7 +9,7 @@ interface pokemonProps {
 const NumberCharacteristicBox = ({ unit, guessedPokemonInfo, correctPokemonInfo }: pokemonProps) => {
 
     return (
-        <View className={`border w-28 h-16 items-center justify-center ${guessedPokemonInfo === correctPokemonInfo ? "bg-green-500" : "bg-red-500"}`}>
+        <View className={`border-4 rounded-md border-black mr-1 w-24 h-24 items-center justify-center ${guessedPokemonInfo === correctPokemonInfo ? "bg-green-500" : "bg-red-500"}`}>
             <View>
                 <Text>{guessedPokemonInfo} {unit}</Text>
             </View>

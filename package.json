@@ -34,10 +34,12 @@
     "expo-symbols": "~0.2.0",
     "expo-system-ui": "~4.0.6",
     "expo-web-browser": "~14.0.1",
+    "lightningcss": "^1.28.2",
     "nativewind": "^4.1.23",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-native": "0.76.5",
+    "react-native-auto-size-text": "^1.1.1",
     "react-native-gesture-handler": "~2.20.2",
     "react-native-get-random-values": "^1.11.0",
     "react-native-reanimated": "~3.16.1",
@@ -48,7 +50,8 @@
     "react-navigation": "^5.0.0",
     "tailwindcss": "^3.4.16",
     "twrnc": "^4.6.0",
-    "zustand": "^5.0.2"
+    "zustand": "^5.0.2",
+    "expo-dev-client": "~5.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",

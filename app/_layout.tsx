@@ -23,7 +23,6 @@ export default function RootLayout() {
 						options={{
 							headerShown: false,
 							gestureEnabled: true,
-							animation: "flip",
 						}}
 					/>
 					<Stack.Screen name="+not-found" />

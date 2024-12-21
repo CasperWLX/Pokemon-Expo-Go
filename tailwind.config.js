@@ -6,9 +6,9 @@ module.exports = {
     extend: {
         colors: {
             // Define your custom colors
-            'primary': '#ffffff',
-            'secondary': '#aaf67e',
-            'accent': '#56f4a7',
+            'primary': '#EAF0E6',
+            'secondary': '#a5dd67',
+            'accent': '#9070ca',
           },
     },
   },

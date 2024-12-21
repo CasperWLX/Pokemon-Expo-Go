@@ -1,11 +1,23 @@
-import GuessBox from "@/components/pokemon/GuessBox";
-import PreviousGuessesBox from "@/components/pokemon/PreviousGuessesBox";
+import React, { useEffect, useState, useCallback } from "react";
+import * as SplashScreen from 'expo-splash-screen'
 import { View, ImageBackground, Text, TouchableOpacity } from "react-native";
-import { useEffect } from "react";
 import pokemonService from "@/service/pokemonService";
 import userService from "@/service/userService";
+import GuessBox from "@/components/pokemon/GuessBox";
+import PreviousGuessesBox from "@/components/pokemon/PreviousGuessesBox";
+
+SplashScreen.preventAutoHideAsync();
+
+SplashScreen.setOptions({
+    fade: true,
+    duration: 1000,
+})
+
+
 
 export default function Index() {
+	const [appIsReady, setAppIsReady] = useState(false);
+
 	const {
 		fetchOnePokemon,
 		setPokemonToGuess,
@@ -19,17 +31,26 @@ export default function Index() {
 	const { updateUser, loggedInUser } = userService();
 
 	useEffect(() => {
-		fetchRandomPokemon();
-		if (listOfAllPokemon.length === 0) {
-			fetchAllPokemon();
+        const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+		async function prepare() {
+			try {
+				await fetchRandomPokemon();
+                await sleep(3000)
+				if (listOfAllPokemon.length === 0) {
+					fetchAllPokemon();
+				}
+			} catch (error) {
+				console.error(error);
+			} finally {
+                setAppIsReady(true);
+			}
 		}
+        prepare();
 	}, []);
 
 	const fetchRandomPokemon = async () => {
 		const randomId = Math.floor(Math.random() * 150) + 1;
-
 		const randomPokemon = await fetchOnePokemon(randomId.toString());
-
 		if (randomPokemon) {
 			setPokemonToGuess(randomPokemon);
 		}
@@ -39,17 +60,29 @@ export default function Index() {
 		if (
 			listOfGuessedPokemon.some(
 				(pokemon) =>
-					pokemon.name === pokemonToGuess.name && loggedInUser?.username
+					pokemon.name === pokemonToGuess.name &&
+					loggedInUser?.username
 			)
 		) {
 			updateUser(listOfGuessedPokemon);
 		}
 	}, [listOfGuessedPokemon]);
 
+    const onLayoutRootView = useCallback(() => {
+        if (appIsReady) {
+          SplashScreen.hide();
+        }
+      }, [appIsReady]);
+
+    if(!appIsReady){
+        return null;
+    }
+
 	return (
 		<ImageBackground
 			className="h-screen-safe w-screen"
 			source={require("@/assets/images/pokemon-bg.webp")}
+            onLayout={onLayoutRootView}
 		>
 			<View className="flex-1 items-center justify-center mt-12 p-4 color-black">
 				{listOfGuessedPokemon.some(
@@ -65,7 +98,8 @@ export default function Index() {
 
 						<TouchableOpacity
 							onPress={() => {
-								fetchRandomPokemon(), cleanArray();
+								fetchRandomPokemon();
+								cleanArray();
 							}}
 							className="bg-secondary p-4 rounded-full border-black border shadow-black shadow-lg m-2"
 						>

@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import userService from "@/service/userService";
 import Headline from "./Headline";
 import pokemonService from "@/service/pokemonService";
+import { router } from "expo-router";
+import LoadingUser from "./LoadingUser";
 
 const UserInfo = () => {
 	const { loggedInUser, logout } = userService();
@@ -13,6 +15,7 @@ const UserInfo = () => {
 
 	const handleLogout = () => {
 		logout();
+        router.push("/(pages)/login")
 	};
 
 	useEffect(() => {
@@ -24,15 +27,19 @@ const UserInfo = () => {
 		}
 	}, [loggedInUser, listOfAllPokemon]);
 
+    if(loggedInUser.username === undefined){
+        return(
+            <View className="h-full items-center justify-center"><LoadingUser /></View>
+        )
+    }
+    
+
 	return (
-		<ScrollView
-			contentContainerClassName="w-full"
-			showsVerticalScrollIndicator={false}
-		>
-			<View className="flex flex-col items-center bg-primary w-full p-4 rounded-lg mb-2">
+		<View className="flex-col mb-24 mt-8">
+			<View className="items-center bg-primary w-full p-4 rounded-lg mb-2">
 				<Headline title="Hello!" />
 				<View
-					className="p-4 bg-secondary rounded-lg shadow-lg shadow-black"
+					className="p-4 w-full bg-secondary rounded-lg shadow-lg shadow-black"
 					style={{ boxShadow: "20px" }}
 				>
 					<Text className="p-2">
@@ -42,20 +49,24 @@ const UserInfo = () => {
 						</Text>
 					</Text>
 					<Text className="p-2">
-						Your best attempt is: {loggedInUser.bestAttempt}
+						Your best attempt is:{" "}
+						<Text className="font-bold">
+							{loggedInUser.bestAttempt}
+						</Text>
 					</Text>
 					<Text className="p-2">
 						Your total number of attempts are:{" "}
-						{loggedInUser.numberOfAttempts}
+						<Text className="font-bold">
+							{loggedInUser.numberOfAttempts}
+						</Text>
 					</Text>
 				</View>
 			</View>
 
-			<View className="flex flex-col items-center bg-primary w-full p-4 rounded-lg mb-2">
-				<Headline title="Statistics" />
+			<View className="w-full items-center bg-primary p-4 rounded-lg mb-2 overflow-hidden h-3/5">
 				<View
-					className="p-4 bg-secondary rounded-lg shadow-lg shadow-black"
-					style={{ boxShadow: "20px" }}
+					className="p-4 w-full bg-secondary rounded-lg shadow-lg shadow-black overflow-hidden"
+					style={{ maxHeight: "100%" }}
 				>
 					{sortedGuessedPokemon.length === 0 ? (
 						<View>
@@ -68,42 +79,43 @@ const UserInfo = () => {
 						</View>
 					) : (
 						<View>
-							<Text className="font-bold mb-4">
-								Your guessed Pokémon:
+							<Text className="font-bold mb-4 text-center text-xl">
+								Your favorite guesses are:
 							</Text>
-							{sortedGuessedPokemon.map(
-								([pokemonName, count]) => {
-									const pokemonDetails =
-										listOfAllPokemon.find(
-											(pokemon) =>
-												pokemon.name.toLowerCase() ===
-												pokemonName.toLowerCase()
-										);
+							<ScrollView contentContainerClassName="">
+								{sortedGuessedPokemon.map(
+									([pokemonName, count]) => {
+										const pokemonDetails =
+											listOfAllPokemon.find(
+												(pokemon) =>
+													pokemon.name.toLowerCase() ===
+													pokemonName.toLowerCase()
+											);
 
-									return (
-										<View
-											key={pokemonName}
-											className="flex flex-row items-center mb-4"
-										>
-											{pokemonDetails && (
+										return (
+											<View
+												key={pokemonName}
+												className="flex-row items-center justify-start mb-4 border-black border-b-2"
+											>
 												<Image
 													source={{
-														uri: pokemonDetails.imgURL,
+														uri: pokemonDetails?.imgURL,
 													}}
-													className="w-12 h-12 mr-4"
+													className="h-16 w-16 mr-4 p-2"
 												/>
-											)}
-											<Text className="font-bold">
-												{pokemonName}
-											</Text>
-											<Text className="ml-2">
-												- {count} time
-												{count > 1 ? "s" : ""}
-											</Text>
-										</View>
-									);
-								}
-							)}
+
+												<Text className="font-bold w-24">
+													{pokemonName}
+												</Text>
+												<Text className="ml-2">
+													: {count} time
+													{count > 1 ? "s" : ""}
+												</Text>
+											</View>
+										);
+									}
+								)}
+							</ScrollView>
 						</View>
 					)}
 				</View>
@@ -115,7 +127,7 @@ const UserInfo = () => {
 			>
 				<Text className="font-bold">Log out</Text>
 			</TouchableOpacity>
-		</ScrollView>
+		</View>
 	);
 };
 

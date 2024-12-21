@@ -54,7 +54,7 @@ const pokemonService = create<apiInterface>()((set, get) => ({
         const currentList = get().listOfGuessedPokemon;
 
         set({
-            listOfGuessedPokemon: [pokemon, ...currentList],
+            listOfGuessedPokemon: [ pokemon, ...currentList],
         });
     },
 

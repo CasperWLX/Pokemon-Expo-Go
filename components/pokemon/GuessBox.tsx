@@ -61,7 +61,7 @@ const GuessBox = () => {
 	};
 
 	return (
-		<View className="bg-primary border-transparent rounded-3xl items-center w-full p-4">
+		<View className="bg-primary border-transparent rounded-3xl items-center w-full p-4 mb-2">
 			<View
 				className="p-4 bg-secondary rounded-lg shadow-md shadow-black m-2"
 				style={{ boxShadow: "20px" }}

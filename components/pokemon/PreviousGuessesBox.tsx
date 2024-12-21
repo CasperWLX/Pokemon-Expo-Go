@@ -4,36 +4,31 @@ import NumberCharacteristicBox from "./NumberCharacteristicBox";
 import HeightAndWeightCharacteristicBox from "./HeightAndWeightCharacteristicBox";
 import DescriptionBox from "./DescriptionBox";
 import { Image, View, ScrollView } from "react-native";
+import Animated, { FadeIn, FlipInEasyX } from "react-native-reanimated";
 
 const PreviousGuessesBox = () => {
 	const { listOfGuessedPokemon, pokemonToGuess } = pokemonService();
 
 	return (
 		<ScrollView
-            contentContainerClassName="w-full"
+			contentContainerClassName="w-full"
 			showsVerticalScrollIndicator={false}
 		>
-			<ScrollView
-            horizontal
-            contentContainerClassName="flex flex-col">
-                {listOfGuessedPokemon.length > 0 && (
-                    <DescriptionBox />
-                )}
-                
+			<ScrollView horizontal contentContainerClassName="flex flex-col">
+				{listOfGuessedPokemon.length > 0 && <DescriptionBox />}
+
 				{listOfGuessedPokemon.map((pokemon, index) => (
-					<View
-						key={index}
-						className="bg-secondary rounded-lg mb-4"
-						style={{ flex: 1 }}
+					<Animated.View
+                        //This is risky, only works because items are always added and never removed or reordered
+						key={listOfGuessedPokemon.length - index}
+						entering={index === 0 ? FlipInEasyX.duration(1000): undefined}
+						style={{ width: "100%", marginBottom: 2 }}
 					>
-						{/* Horizontal ScrollView for Characteristics */}
-						<View
-							className="flex-row p-2 items-center justify-center"
-						>
+						<View className="flex-row items-center">
 							{/* Pokémon Image */}
 							<Image
 								source={{ uri: pokemon.imgURL }}
-                                className="flex-shrink-0 object-contain h-24 w-24"
+								className="flex-shrink-0 object-contain h-24 w-24 bg-primary rounded-md border-4 mr-1 border-black"
 							/>
 							{/* Pokémon Characteristics */}
 							<StringCharacteristicBox
@@ -66,7 +61,7 @@ const PreviousGuessesBox = () => {
 								unit="kg"
 							/>
 						</View>
-					</View>
+					</Animated.View>
 				))}
 			</ScrollView>
 		</ScrollView>

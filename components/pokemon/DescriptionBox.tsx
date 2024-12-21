@@ -2,17 +2,14 @@ import { Text, View } from "react-native"
 
 const DescriptionBox = () => {
 
-    const propertyList = ["Name", "First type", "Second type", "Evolution stage", "Height", "Weight"]
+    const propertyList = ["Image","Name", "First type", "Second type", "Evolution stage", "Height", "Weight"]
     return (
-        <View className="flex flex-row justify-center bg-secondary rounded-lg mb-2 p-2 mt-4" >
-            <View className="flex items-center w-[96px] justify-center ">
-                <Text className="font-bold w-28 p-2 hidden">hidden</Text>
-            </View>
+        <View className="flex-row rounded-lg mb-2 mt-4" >
             {propertyList.map((property, key) => (
-                <View className="flex items-center w-28 justify-center p-2" key={key}>
-                    <Text className="font-bold p-2">{property}:</Text>
+                <View className="items-center justify-center mr-1" key={key}>
+                    <Text className="text-center font-bold items-center w-24 h-10">{property}</Text>
+                    <Text className="text-5xl bg-black h-2 rounded-md text-start">___</Text>
                 </View>
-
             ))}
         </View>
     )

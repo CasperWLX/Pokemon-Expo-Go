@@ -5,7 +5,7 @@ import {
 	TouchableOpacity,
 	Keyboard,
 } from "react-native";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import Headline from "./Headline";
 import userService from "@/service/userService";
@@ -26,12 +26,21 @@ const Login = () => {
 			console.log("we try log in");
 			const loginSuccesfull = await login(username, password);
 			if (loginSuccesfull) {
+                cleanInputs()
+                router.push("/(pages)/user")
                 getUserInfo();
-			}
+			}else{
+                alert("Password or Username is wrong")
+            }
 		} catch (error) {
-            alert("Password or Username is wrong")
+            console.log(error)
 		}
 	};
+
+    const cleanInputs = () => {
+        setUsername("")
+        setPassword("")
+    }
 
 	return (
 		<View className="flex-col items-center bg-primary w-full p-4 rounded-lg">
