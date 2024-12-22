@@ -8,13 +8,6 @@ import PreviousGuessesBox from "@/components/pokemon/PreviousGuessesBox";
 
 SplashScreen.preventAutoHideAsync();
 
-SplashScreen.setOptions({
-    fade: true,
-    duration: 1000,
-})
-
-
-
 export default function Index() {
 	const [appIsReady, setAppIsReady] = useState(false);
 
@@ -28,17 +21,21 @@ export default function Index() {
 		listOfAllPokemon,
 	} = pokemonService();
 
-	const { updateUser, loggedInUser } = userService();
+	const { updateUser, loggedInUser, refreshTokens, getUserInfo } = userService();
 
 	useEffect(() => {
         const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 		async function prepare() {
 			try {
 				await fetchRandomPokemon();
-                await sleep(3000)
+                await sleep(5000)
 				if (listOfAllPokemon.length === 0) {
 					fetchAllPokemon();
 				}
+                const tokensRefreshed = await refreshTokens();
+                if(tokensRefreshed){
+                    getUserInfo()
+                }
 			} catch (error) {
 				console.error(error);
 			} finally {
