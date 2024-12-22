@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getJwtToken } from './tokenService';
 
-const apiURL = "http://192.168.8.152:8080";
+const apiURL = "https://poke-guess-latest.onrender.com";
 
 const clientUtils = axios.create({
     baseURL: apiURL,
