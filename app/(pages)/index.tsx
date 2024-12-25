@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import * as SplashScreen from 'expo-splash-screen'
+import * as SplashScreen from "expo-splash-screen";
 import { View, ImageBackground, Text, TouchableOpacity } from "react-native";
 import pokemonService from "@/service/pokemonService";
 import userService from "@/service/userService";
@@ -21,28 +21,27 @@ export default function Index() {
 		listOfAllPokemon,
 	} = pokemonService();
 
-	const { updateUser, loggedInUser, refreshTokens, getUserInfo } = userService();
+	const { updateUser, loggedInUser, refreshTokens, getUserInfo } =
+		userService();
 
 	useEffect(() => {
-        const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 		async function prepare() {
 			try {
 				await fetchRandomPokemon();
-                await sleep(5000)
 				if (listOfAllPokemon.length === 0) {
 					fetchAllPokemon();
 				}
-                const tokensRefreshed = await refreshTokens();
-                if(tokensRefreshed){
-                    getUserInfo()
-                }
+				const tokensRefreshed = await refreshTokens();
+				if (tokensRefreshed) {
+					await getUserInfo();
+				}
 			} catch (error) {
 				console.error(error);
 			} finally {
-                setAppIsReady(true);
+				setAppIsReady(true);
 			}
 		}
-        prepare();
+		prepare();
 	}, []);
 
 	const fetchRandomPokemon = async () => {
@@ -65,21 +64,23 @@ export default function Index() {
 		}
 	}, [listOfGuessedPokemon]);
 
-    const onLayoutRootView = useCallback(() => {
-        if (appIsReady) {
-          SplashScreen.hide();
-        }
-      }, [appIsReady]);
+	useEffect(() => {}, [appIsReady]);
 
-    if(!appIsReady){
-        return null;
-    }
+	const onLayoutRootView = useCallback(() => {
+		if (appIsReady) {
+			SplashScreen.hide();
+		}
+	}, [appIsReady]);
+
+	if (!appIsReady) {
+		return null;
+	}
 
 	return (
 		<ImageBackground
 			className="h-screen-safe w-screen"
 			source={require("@/assets/images/pokemon-bg.webp")}
-            onLayout={onLayoutRootView}
+			onLayout={onLayoutRootView}
 		>
 			<View className="flex-1 items-center justify-center mt-12 p-4 color-black">
 				{listOfGuessedPokemon.some(

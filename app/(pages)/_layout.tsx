@@ -5,19 +5,22 @@ import { Platform } from "react-native";
 import { useColorScheme } from "react-native";
 import { Colors } from "@/constants/Colors";
 import userService from "@/service/userService";
+import pokemonService from "@/service/pokemonService";
 
 const _layout = () => {
 	const colorScheme = useColorScheme();
 	const { loggedInUser } = userService();
+    const {listOfAllPokemon} = pokemonService();
 
-	useEffect(() => {}, [loggedInUser]);
+	useEffect(() => {}, [loggedInUser, listOfAllPokemon]);
 
 	return (
 		<Tabs
 			screenOptions={{
+                
 				tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
 				headerShown: false,
-				tabBarStyle: Platform.select({
+				tabBarStyle: listOfAllPokemon.length === 0 ? {display: 'none'} : Platform.select({
 					ios: {
 						position: "absolute",
 					},

@@ -14,11 +14,10 @@ const Register = () => {
     const { register } = userService();
 
     useEffect(() => {
-        setAllow(
-            password === repeatPassword &&
-                password.length > 4 &&
-                username.length > 4
-        );
+        const usernameIsAllowed = username.length > 4 && username.length < 16;
+        const passwordIsAllowed = password.length > 4 && password === repeatPassword;
+
+        setAllow(usernameIsAllowed && passwordIsAllowed);
     }, [password, repeatPassword, username]);
 
     const handleSubmit = async () => {
@@ -27,7 +26,7 @@ const Register = () => {
             alert("You've successfully registered");
             cleanInputs();
             Keyboard.dismiss();
-            router.push("/(pages)/user");
+            router.push("/(pages)/login");
         } else {
             alert("A user with that name already exists");
         }
@@ -67,26 +66,32 @@ const Register = () => {
 					secureTextEntry
 				/>
 				{/* Error Messages */}
-				<Text
+                {password.length < 4 ? (
+                    <Text
+					className="text-red-500 m-2"
+				>
+					Passwords is too short
+				</Text>
+                ) : (
+                <Text
 					className="text-red-500 m-2"
 					style={{
 						opacity:
-							password !== repeatPassword &&
-							password.length > 4 &&
-							repeatPassword.length > 4
+							password !== repeatPassword
 								? 1
 								: 0,
 					}}
 				>
 					Passwords do not match
-				</Text>
+				</Text>)}
+				
 				<Text
 					className="text-red-500 p-2"
 					style={{
-						opacity: username.length < 5 && password.length === password.length && password.length > 4 ? 1 : 0,
+						opacity: username.length > 0 && (username.length < 5 || username.length > 15) ? 1 : 0,
 					}}
 				>
-					Username too short
+					Username needs to be 5-15 characters
 				</Text>
 				<TouchableOpacity
 					disabled={!allowRegister}

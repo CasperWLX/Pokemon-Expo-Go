@@ -27,8 +27,8 @@ const Login = () => {
 			const loginSuccesfull = await login(username, password);
 			if (loginSuccesfull) {
                 cleanInputs()
-                router.push("/(pages)/user")
                 getUserInfo();
+                router.push("/(pages)/user")
 			}else{
                 alert("Password or Username is wrong")
             }

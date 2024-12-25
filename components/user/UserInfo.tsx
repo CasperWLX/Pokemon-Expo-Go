@@ -14,8 +14,9 @@ const UserInfo = () => {
 	>([]);
 
 	const handleLogout = () => {
+		setSortedGuessedPokemon([]); //Need this, otherwise new users get old users stats.
 		logout();
-        router.push("/(pages)/login")
+		router.push("/(pages)/login");
 	};
 
 	useEffect(() => {
@@ -27,34 +28,36 @@ const UserInfo = () => {
 		}
 	}, [loggedInUser, listOfAllPokemon]);
 
-    if(loggedInUser.username === undefined){
-        return(
-            <View className="h-full items-center justify-center"><LoadingUser /></View>
-        )
-    }
-    
+	if (loggedInUser.username === undefined) {
+		return (
+			<View className="h-full items-center justify-center">
+				<LoadingUser />
+			</View>
+		);
+	}
 
 	return (
-		<View className="flex-col mb-24 mt-8">
+		<View className="flex-col mb-24">
 			<View className="items-center bg-primary w-full p-4 rounded-lg mb-2">
 				<Headline title="Hello!" />
 				<View
 					className="p-4 w-full bg-secondary rounded-lg shadow-lg shadow-black"
 					style={{ boxShadow: "20px" }}
 				>
-					<Text className="p-2">
+					<Text className="py-2">
 						Welcome to your page{" "}
 						<Text className="font-bold">
-							{loggedInUser.username}
+                            Aaaaaaaaaaaaaaa
 						</Text>
 					</Text>
-					<Text className="p-2">
+
+					<Text className="py-2">
 						Your best attempt is:{" "}
 						<Text className="font-bold">
 							{loggedInUser.bestAttempt}
 						</Text>
 					</Text>
-					<Text className="p-2">
+					<Text className="py-2">
 						Your total number of attempts are:{" "}
 						<Text className="font-bold">
 							{loggedInUser.numberOfAttempts}
@@ -82,7 +85,7 @@ const UserInfo = () => {
 							<Text className="font-bold mb-4 text-center text-xl">
 								Your favorite guesses are:
 							</Text>
-							<ScrollView contentContainerClassName="">
+							<ScrollView contentContainerClassName="pb-4">
 								{sortedGuessedPokemon.map(
 									([pokemonName, count]) => {
 										const pokemonDetails =

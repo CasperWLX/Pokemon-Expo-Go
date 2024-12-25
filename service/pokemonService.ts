@@ -38,7 +38,6 @@ const pokemonService = create<apiInterface>()((set, get) => ({
             const response = await util.get(`${pokemonEndpoints}/pokemon/all`)
             if (response.status === 200) {
                 set({listOfAllPokemon: response.data})
-                console.log(response.data)
             }
         } catch (error) {
             console.error("Error fetching all pokemon");
