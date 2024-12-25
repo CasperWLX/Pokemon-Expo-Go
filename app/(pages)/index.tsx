@@ -33,7 +33,7 @@ export default function Index() {
 				}
 				const tokensRefreshed = await refreshTokens();
 				if (tokensRefreshed) {
-					await getUserInfo();
+					getUserInfo();
 				}
 			} catch (error) {
 				console.error(error);

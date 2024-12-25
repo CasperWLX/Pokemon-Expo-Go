@@ -4,7 +4,7 @@ import userService from "@/service/userService";
 import Headline from "./Headline";
 import pokemonService from "@/service/pokemonService";
 import { router } from "expo-router";
-import LoadingUser from "./LoadingUser";
+import LoadingCircle from "../LoadingCircle";
 
 const UserInfo = () => {
 	const { loggedInUser, logout } = userService();
@@ -31,7 +31,7 @@ const UserInfo = () => {
 	if (loggedInUser.username === undefined) {
 		return (
 			<View className="h-full items-center justify-center">
-				<LoadingUser />
+				<LoadingCircle />
 			</View>
 		);
 	}
