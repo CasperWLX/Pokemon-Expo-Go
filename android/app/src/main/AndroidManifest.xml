@@ -27,6 +27,7 @@
         <data android:scheme="myapp"/>
         <data android:scheme="com.casperwlx.pokemongame"/>
         <data android:scheme="exp+pokemon-game"/>
+        <data android:scheme="exp+pokeguessr"/>
       </intent-filter>
     </activity>
   </application>
