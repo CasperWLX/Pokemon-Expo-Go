@@ -5,8 +5,7 @@ import pokemonService from "@/service/pokemonService";
 import userService from "@/service/userService";
 import GuessBox from "@/components/pokemon/GuessBox";
 import PreviousGuessesBox from "@/components/pokemon/PreviousGuessesBox";
-
-SplashScreen.preventAutoHideAsync();
+import LoadingScreen from "@/components/LoadingScreen";
 
 export default function Index() {
 	const [appIsReady, setAppIsReady] = useState(false);
@@ -66,21 +65,14 @@ export default function Index() {
 
 	useEffect(() => {}, [appIsReady]);
 
-	const onLayoutRootView = useCallback(() => {
-		if (appIsReady) {
-			SplashScreen.hide();
-		}
-	}, [appIsReady]);
-
 	if (!appIsReady) {
-		return null;
+		return <LoadingScreen />;
 	}
 
 	return (
 		<ImageBackground
 			className="h-screen-safe w-screen"
 			source={require("@/assets/images/pokemon-bg.webp")}
-			onLayout={onLayoutRootView}
 		>
 			<View className="flex-1 items-center justify-center mt-12 p-4 color-black">
 				{listOfGuessedPokemon.some(
