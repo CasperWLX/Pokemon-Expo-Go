@@ -47,7 +47,7 @@ const UserInfo = () => {
 					<Text className="py-2">
 						Welcome to your page{" "}
 						<Text className="font-bold">
-                            Aaaaaaaaaaaaaaa
+                            {loggedInUser.username}
 						</Text>
 					</Text>
 

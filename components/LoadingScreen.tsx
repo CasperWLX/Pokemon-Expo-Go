@@ -1,12 +1,9 @@
 import {
-	ImageBackground,
-	TouchableOpacity,
 	View,
 	Image,
 	ActivityIndicator,
 } from "react-native";
 import React from "react";
-import LoadingCircle from "./LoadingCircle";
 
 const LoadingScreen = () => {
 	return (
