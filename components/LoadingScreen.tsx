@@ -12,7 +12,7 @@ const LoadingScreen = () => {
 				source={require("@/assets/images/splash.png")}
 				style={{ resizeMode: "contain", height: 240 }}
 			/>
-			<View className="absolute" style={{left: 173, top: 326}}>
+			<View className="absolute" style={{bottom: 200}}>
 				<ActivityIndicator size={"large"} color={"black"} />
 			</View>
 		</View>

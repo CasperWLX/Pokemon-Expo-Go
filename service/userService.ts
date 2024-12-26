@@ -43,7 +43,6 @@ const userService = create<serviceInterface>()((set) => ({
 
 			if (response.status === 200) {
 				const { accessToken, refreshToken } = response.data;
-
 				await tokenService.saveJwtToken(accessToken);
 				await tokenService.saveRefreshToken(refreshToken);
 

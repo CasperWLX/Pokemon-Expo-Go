@@ -3,11 +3,13 @@ import { router } from "expo-router";
 import Headline from "./Headline";
 import React, { useState, useEffect } from "react";
 import userService from "@/service/userService";
+import LoadingCircle from "../LoadingCircle";
 
 const Register = () => {
 	const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const [allowRegister, setAllow] = useState<boolean>(false);
 
@@ -21,6 +23,7 @@ const Register = () => {
     }, [password, repeatPassword, username]);
 
     const handleSubmit = async () => {
+        setLoading(true);
         const result = await register(username, password);
         if (result) {
             alert("You've successfully registered");
@@ -30,12 +33,21 @@ const Register = () => {
         } else {
             alert("A user with that name already exists");
         }
+        setLoading(false);
     };
 
     const cleanInputs = () => {
         setPassword("")
         setRepeatPassword("")
         setUsername("")
+    }
+
+    if(loading){
+        return (
+			<View className="h-full items-center justify-center">
+				<LoadingCircle />
+			</View>
+		);
     }
 
 	return (

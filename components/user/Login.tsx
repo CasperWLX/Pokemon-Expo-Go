@@ -9,11 +9,13 @@ import { Link, router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import Headline from "./Headline";
 import userService from "@/service/userService";
+import LoadingCircle from "../LoadingCircle";
 
 const Login = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [isAllowed, setAllow] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		setAllow(password.length > 0 && username.length > 0);
@@ -23,24 +25,33 @@ const Login = () => {
 
 	const handleLogin = async () => {
 		try {
+			setLoading(true);
 			console.log("we try log in");
 			const loginSuccesfull = await login(username, password);
 			if (loginSuccesfull) {
-                cleanInputs()
-                getUserInfo();
-                router.push("/(pages)/user")
-			}else{
-                alert("Password or Username is wrong")
-            }
+				cleanInputs();
+				getUserInfo();
+				router.push("/(pages)/user");
+			} else {
+				alert("Password or Username is wrong");
+			}
 		} catch (error) {
-            console.log(error)
+			console.log(error);
 		}
+		setLoading(false);
 	};
 
-    const cleanInputs = () => {
-        setUsername("")
-        setPassword("")
-    }
+	const cleanInputs = () => {
+		setUsername("");
+		setPassword("");
+	};
+	if (loading) {
+		return (
+			<View className="h-full items-center justify-center">
+				<LoadingCircle />
+			</View>
+		);
+	}
 
 	return (
 		<View className="flex-col items-center bg-primary w-full p-4 rounded-lg">
