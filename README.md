@@ -31,5 +31,5 @@ You can run the app on:
 The game can be easily downloaded and played on an Android phone using Expo Go without any difficulties.
 
 ### 🚀Learn More
-Expo documentation – Learn about Expo & React Native
-Expo Go – Run your app instantly on mobile
+- Expo documentation – Learn about Expo & React Native
+- Expo Go – Run your app instantly on mobile
