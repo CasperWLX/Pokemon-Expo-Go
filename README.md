@@ -21,14 +21,15 @@ You can run the app on:
 - An Android emulator (setup guide)
 - An iOS simulator (Mac users)
 
-🎮 Features
-✔️ Wordle-inspired gameplay – Guess the Pokémon with limited attempts
-✔️ Seamless experience – Play directly on an Android phone via Expo Go
-✔️ Smooth and interactive UI – Built with React Native & Expo
-✔️ Persistent state – Keep track of past guesses
-📥 Download & Play
+###🎮Features
+- ✔️ Wordle-inspired gameplay – Guess the Pokémon with limited attempts
+- ✔️ Seamless experience – Play directly on an Android phone via Expo Go
+- ✔️ Smooth and interactive UI – Built with React Native & Expo
+- ✔️ Persistent state – Keep track of past guesses
+  
+###📥Download & Play
 The game can be easily downloaded and played on an Android phone using Expo Go without any difficulties.
 
-🚀 Learn More
+###🚀Learn More
 Expo documentation – Learn about Expo & React Native
 Expo Go – Run your app instantly on mobile
